@@ -16,13 +16,13 @@ const Home = () => {
 
   return (
     <div className='home'>
-      <Typography variant="h3" color="textPrimary" sx={{margin: '30px auto'}}>
-          REED SOLOMON ENCODER
-      </Typography>
+      <div className="logo">
+        REED SOLOMON ENCODER
+      </div>
       <div className='input'>
         <TextField
           sx={ {marginBottom: '16px'}}
-          label="Enter n"
+          label="N"
           value={n}
           onChange={(e) => setN(e.target.value)}
           variant="outlined"
@@ -31,7 +31,7 @@ const Home = () => {
           />
         <TextField
           sx={ {marginBottom: '16px'}}
-          label="Enter k"
+          label="K"
           value={k}
           onChange={(e) => setK(e.target.value)}
           variant="outlined"
