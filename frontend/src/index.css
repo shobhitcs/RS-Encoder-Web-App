@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Barlow:wght@300&family=Maven+Pro&family=Monda:wght@700&family=Poppins:wght@300&family=Righteous&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Barlow:wght@500&family=Maven+Pro&family=Monda:wght@600;700&family=Poppins:wght@300&family=Righteous&family=Ubuntu:wght@400;500;700&display=swap');
 
 *{
   margin: 0;
@@ -8,10 +8,11 @@
 }
 
 .home {
-  background-color: rgb(247, 245, 245);
+  background-color: rgb(243, 243, 243);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px 10px;
   padding-bottom: 50px;
   /* margin-bottom: 50px; */
 }
@@ -22,9 +23,64 @@
 }
 
 .logo{
-  font-family: "Monda", sans-serif;
+  text-align: center;
+  font-family: "Righteous", sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 40px;
+  font-size: 30px;
   padding: 20px 0;
+}
+.title {
+  text-align: center;
+  font-family: "Maven Pro", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 20px;
+  padding: 20px 0;
+}
+
+.pgm-tab {
+  max-width: 1300px;
+  padding: 20px 10px;
+  padding-bottom: 30px;
+  margin: auto;
+  border-bottom: 2px solid rgb(219, 219, 219);
+}
+
+.pgm-grid {
+  overflow-x: auto;
+  border: 1px solid rgb(231, 231, 231);
+  border-radius: 5px;
+}
+
+.copy-button {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.nothing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0 0 0;
+  font-family: "Barlow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+}
+
+::-webkit-scrollbar {
+  width: 3px; /* Width of the scrollbar */
+}
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the handle on hover */
 }
