@@ -71,8 +71,9 @@ const Home = () => {
   };
 
   const handleEncodeClassical = () => {
+    
     if (message !== null && message !== '') {
-      const input = parseMessage(message, n, k);
+      const input = parseMessage(message.trim(), +n, +k);
       if (!input) {
         setAlertMsg("Message size must be a multiple of K or fewer than N elements.");
         setOpenValid(true);
@@ -94,7 +95,7 @@ const Home = () => {
 
   const handleEncodeSystematic = () => {
     if (message !== null && message !== '') {
-      const input = parseMessage(message, n, +k);
+      const input = parseMessage(message.trim(), +n, +k);
       if (!input) {
         setAlertMsg("Message size must be a multiple of K or fewer than N elements.");
         setOpenValid(true);
@@ -107,7 +108,7 @@ const Home = () => {
         }
         const pts = checked ? evalp.trim() : temp.join(" ");
 
-        const check = parseEvalP(pts, +n, +k);
+        const check = parseEvalP(pts.trim(), +n, +k);
         if (!check) {
           setAlertMsg("Unique points: Length = K, Elements < N.");
           setOpenValid(true);
