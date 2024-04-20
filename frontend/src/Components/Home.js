@@ -5,6 +5,7 @@ import MatrixGrid from './Matrix';
 import { encodeClassical, encodeSystematic, isPrime, parseEvalP, parseMessage, pgmGen } from '../Controllers/ReedSolomon';
 import ClassicalEncode from './ClassicalEncode';
 import SystematicEncode from './SystematicEncode';
+import About from './About';
 
 
 
@@ -138,7 +139,7 @@ const Home = () => {
         <div className='input'>
           <TextField
             sx={{ marginBottom: '16px' }}
-            label="N"
+            label="N PARAMETER OF RS CODE"
             value={n}
             onChange={(e) => setN(e.target.value)}
             variant="outlined"
@@ -147,7 +148,7 @@ const Home = () => {
           />
           <TextField
             sx={{ marginBottom: '8px' }}
-            label="K"
+            label="K PARAMETER OF RS CODE"
             value={k}
             onChange={(e) => setK(e.target.value)}
             variant="outlined"
@@ -221,9 +222,7 @@ const Home = () => {
       <div className="dum" ref={divRef[2]}>
         {sysmsg && <SystematicEncode msgEncode={sysmsg} />}
       </div>
-      {!pgm && !classmsg && !sysmsg && <div className="nothing">
-        Try out some features.
-      </div>}
+      {!pgm && !classmsg && !sysmsg && <About />}
       <Snackbar open={openValid} autoHideDuration={5000} onClose={handleCloseValid}>
         <Alert onClose={handleCloseValid} severity="error" sx={{ width: '100%' }}>
           {alertmsg}
