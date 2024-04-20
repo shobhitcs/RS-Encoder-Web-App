@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Barlow:wght@500&family=Maven+Pro&family=Monda:wght@600;700&family=Poppins:wght@300&family=Righteous&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Barlow:wght@500&family=Maven+Pro&family=Monda:wght@400;600;700&family=Poppins:wght@300&family=Righteous&family=Ubuntu:wght@400;500;700&display=swap');
 
 *{
   margin: 0;
@@ -14,11 +14,9 @@
   align-items: center;
   padding: 10px 10px;
   padding-bottom: 50px;
-  /* margin-bottom: 50px; */
 }
 .input{
   margin: auto;
-  /* background-color: aqua; */
   max-width: 900px;
 }
 
@@ -44,13 +42,14 @@
   padding: 20px 10px;
   padding-bottom: 30px;
   margin: auto;
-  border-bottom: 2px solid rgb(219, 219, 219);
+
 }
 
 .pgm-grid {
   overflow-x: auto;
   border: 1px solid rgb(231, 231, 231);
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .copy-button {
@@ -69,18 +68,30 @@
   font-style: normal;
   font-size: 20px;
 }
+.inpeval {
+  padding: 10px 0;
+  font-family: "Monda", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.txt {
+  text-align: center;
+}
 
 ::-webkit-scrollbar {
-  width: 3px; /* Width of the scrollbar */
+  width: 3px; 
 }
 
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; /* Color of the handle */
+  background: #888;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color of the handle on hover */
+  background: #555; 
 }

@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { TextField, Button, Snackbar, Alert } from '@mui/material';
+import { TextField, Button, Snackbar, Alert, Checkbox, FormControlLabel } from '@mui/material';
 import '../index.css';
 import MatrixGrid from './Matrix';
-import { encodeClassical, encodeSystematic, isPrime, parseMessage, pgmGen } from '../Controllers/ReedSolomon';
+import { encodeClassical, encodeSystematic, isPrime, parseEvalP, parseMessage, pgmGen } from '../Controllers/ReedSolomon';
 import ClassicalEncode from './ClassicalEncode';
 import SystematicEncode from './SystematicEncode';
 
@@ -11,17 +11,25 @@ import SystematicEncode from './SystematicEncode';
 const Home = () => {
   const [n, setN] = useState('');
   const [k, setK] = useState('');
+  const [evalp, setEvalP] = useState('');
   const [alertmsg, setAlertMsg] = useState('');
   const [message, setMessage] = useState('');
   const [classmsg, setClassMsg] = useState(null);
   const [sysmsg, setSysMsg] = useState(null);
   const [pgm, setPgm] = useState(null);
   const [openValid, setOpenValid] = React.useState(false);
+  const [checked, setChecked] = useState(false);
   const divRef = [
     useRef(null),
     useRef(null),
     useRef(null)
   ];
+
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
   const handleCloseValid = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -65,7 +73,7 @@ const Home = () => {
     if (message !== null && message !== '') {
       const input = parseMessage(message, n, k);
       if (!input) {
-        setAlertMsg("Invalid Size or Message Elements.");
+        setAlertMsg("Message size must be a multiple of K or fewer than N elements.");
         setOpenValid(true);
         return;
       }
@@ -85,17 +93,31 @@ const Home = () => {
 
   const handleEncodeSystematic = () => {
     if (message !== null && message !== '') {
-      const input = parseMessage(message, n, k);
+      const input = parseMessage(message, n, +k);
       if (!input) {
-        setAlertMsg("Invalid Size or Message Elements.");
+        setAlertMsg("Message size must be a multiple of K or fewer than N elements.");
         setOpenValid(true);
         return;
       }
       else {
-        setSysMsg(encodeSystematic(input, +k, +n));
-        requestAnimationFrame(() => {
-          divRef[2].current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        });
+        let temp = [];
+        for (let i = 0; i < k; i++) {
+          temp.push(i)
+        }
+        const pts = checked ? evalp.trim() : temp.join(" ");
+
+        const check = parseEvalP(pts, +n, +k);
+        if (!check) {
+          setAlertMsg("Unique points: Length = K, Elements < N.");
+          setOpenValid(true);
+          return;
+        }
+        else {
+          setSysMsg(encodeSystematic(input, check, +k, +n));
+          requestAnimationFrame(() => {
+            divRef[2].current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          });
+        }
       }
     }
     else {
@@ -167,19 +189,39 @@ const Home = () => {
           >
             Systematic Encoding
           </Button>
+          <div className="inpeval">
+            <div className="txt">
+              <div>Default Evaluation points are [0 .. K-1]. </div>
+              <div>Change evaluation points for systematic input ? </div>
+            </div>
+            <FormControlLabel
+              control={<Checkbox checked={checked} onChange={handleChange} />}
+              label="Check Me"
+            />
+          </div>
+          {
+            checked && <TextField
+              sx={{ marginBottom: '8px' }}
+              label="Evaluation points"
+              value={evalp}
+              onChange={(e) => setEvalP(e.target.value)}
+              variant="outlined"
+              fullWidth
+            />
+          }
         </div>
         {/* Add the second section here */}
       </div>
       <div className="dum" ref={divRef[0]}>
-        {pgm && <MatrixGrid  pgmSet={setPgm} pgmMat={pgm} /> }
+        {pgm && <MatrixGrid pgmSet={setPgm} pgmMat={pgm} />}
       </div>
       <div className="dum" ref={divRef[1]}>
-        {classmsg &&  <ClassicalEncode msgEncode={classmsg} /> }
+        {classmsg && <ClassicalEncode msgEncode={classmsg} />}
       </div>
       <div className="dum" ref={divRef[2]}>
-        {sysmsg && <SystematicEncode msgEncode={sysmsg} /> }
+        {sysmsg && <SystematicEncode msgEncode={sysmsg} />}
       </div>
-      {!pgm && !classmsg &&!sysmsg &&<div className="nothing">
+      {!pgm && !classmsg && !sysmsg && <div className="nothing">
         Try out some features.
       </div>}
       <Snackbar open={openValid} autoHideDuration={5000} onClose={handleCloseValid}>

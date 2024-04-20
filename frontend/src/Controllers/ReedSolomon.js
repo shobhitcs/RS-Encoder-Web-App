@@ -31,27 +31,50 @@ const pgmGen = (n, k) => {
     return pgm;
 };
 
-const parseMessage = (inputString, n, k) => {
-    // Split the input string into an array of substrings containing only numbers
-    const numbers = inputString.split(/\s+/);
+const areDgSpace = (str) => {
+    return /^[0-9\s]+$/.test(str);
+}
 
-    // If numbers array is null or the length is not a multiple of k, return null
+const parseMessage = (inputString, n, k) => {
+    if(!areDgSpace(inputString)) { return null; }
+    const numbers = inputString.split(/\s+/);
     if (!numbers || numbers.length % k !== 0 || numbers.length === 0) {
         return null;
     }
-
-    // Convert each substring to a number using map(Number)
     const parsedNumbers = numbers.map(Number);
-
-    // Iterate through each parsed number and check if it's less than n
     for (let i = 0; i < parsedNumbers.length; i++) {
         const num = parsedNumbers[i];
         if (num >= n) {
             return null;
         }
     }
+    return parsedNumbers;
+}
 
-    // Return the array of parsed numbers
+const areUnique = (arr) => {
+    const seen = new Set();
+    for (const item of arr) {
+        if (seen.has(item)) {
+            return false;
+        }
+        seen.add(item);
+    }
+    return true; 
+}
+
+const parseEvalP = (inputString, n, k) => {
+    if(!areDgSpace(inputString)) { return null; }
+    const numbers = inputString.split(/\s+/);
+    if (!numbers || numbers.length !== k || numbers.length === 0 || !areUnique(numbers)) {
+        return null;
+    }
+    const parsedNumbers = numbers.map(Number);
+    for (let i = 0; i < parsedNumbers.length; i++) {
+        const num = parsedNumbers[i];
+        if (num >= n) {
+            return null;
+        }
+    }
     return parsedNumbers;
 }
 
@@ -74,7 +97,7 @@ const divideIntoChunks = (array, k) => {
     return chunks;
 }
 
-// Function to encode each chunk and concatenate the results
+
 const encodeClassical = (array, pgm, k) => {
     const chunks = divideIntoChunks(array, k);
     let encodedMessage = [];
@@ -89,10 +112,8 @@ const encodeClassical = (array, pgm, k) => {
 
 
 function inverse(val, n) {
-    // Base case: if the value is 1, its modular inverse is 1
     if (val === 1) return 1;
 
-    // Initialize variables for the extended Euclidean algorithm
     let t = 0, newt = 1, r = n, newr = val;
 
     while (newr !== 0) {
@@ -105,7 +126,6 @@ function inverse(val, n) {
         newr = temp2 - quotient * newr;
     }
 
-    // Ensure the result is positive
     if (t < 0) t += n;
 
     return t;
@@ -134,30 +154,32 @@ function interpolateAndEvaluate(givenPoints, evaluationPoints, prime) {
 }
 
 
-function zipWithSeparate(arr1,n) {
+function zipWithSeparate(arr1, arr2, n) {
     let zipped = [];
     let leftOver = [];
 
+    for (let i = 0; i < arr1.length; i++) {
+        zipped.push([arr2[i],arr1[i]]);
+    }
     for (let i = 0; i < n; i++) {
-        if(i<arr1.length)
-            zipped.push([i,arr1[i]]);
-        else 
+        if (!arr2.includes(i)) {
             leftOver.push(i);
+        }
     }
     return {zipped, leftOver};
 }
 
-// Function to encode each chunk and concatenate the results
-const encodeSystematic = (array, k, n) => {
+const encodeSystematic = (array, evalpoints, k, n) => {
     const chunks = divideIntoChunks(array, k);
     let encodedMessage = [];
     
     for (let i = 0; i < chunks.length; i++) {
-        const {zipped , leftOver} = zipWithSeparate(chunks[i], n);
+
+        const {zipped , leftOver} = zipWithSeparate(chunks[i], evalpoints, n);
         const encodedChunk = interpolateAndEvaluate(zipped, leftOver, n);
         encodedMessage = encodedMessage.concat(encodedChunk);
     }
     return encodedMessage;
 }
 
-export { isPrime, pgmGen, parseMessage, encodeClassical, encodeSystematic };
+export { isPrime, pgmGen, parseMessage, encodeClassical, encodeSystematic, parseEvalP };
