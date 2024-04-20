@@ -132,10 +132,10 @@ function inverse(val, n) {
 }
 
 
-function interpolateAndEvaluate(givenPoints, evaluationPoints, prime) {
-    const allPoints = [...givenPoints.map(([x]) => x), ...evaluationPoints];
+function interpolateAndEvaluate(givenPoints, prime) {
+    
     const evaluations = [];
-    for (const x of allPoints) {
+    for (let x = 0; x < prime ;x++ ) {
         let y = 0;
         for (const [xi, yi] of givenPoints) {
             let numerator = yi;
@@ -166,7 +166,7 @@ function zipWithSeparate(arr1, arr2, n) {
             leftOver.push(i);
         }
     }
-    return {zipped, leftOver};
+    return zipped;
 }
 
 const encodeSystematic = (array, evalpoints, k, n) => {
@@ -175,8 +175,8 @@ const encodeSystematic = (array, evalpoints, k, n) => {
     
     for (let i = 0; i < chunks.length; i++) {
 
-        const {zipped , leftOver} = zipWithSeparate(chunks[i], evalpoints, n);
-        const encodedChunk = interpolateAndEvaluate(zipped, leftOver, n);
+        const zipped = zipWithSeparate(chunks[i], evalpoints, n);
+        const encodedChunk = interpolateAndEvaluate(zipped, n);
         encodedMessage = encodedMessage.concat(encodedChunk);
     }
     return encodedMessage;
