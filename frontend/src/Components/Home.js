@@ -38,12 +38,18 @@ const Home = () => {
     setOpenValid(false);
   };
 
+  const areDg = (str) => {
+    return /^[0-9]+$/.test(str);
+  }
   const handleGeneratePGM = () => {
     // Check if n is a valid prime number and k is less than n
-
-    const parsedN = parseInt(n);
-    const parsedK = parseInt(k);
-
+    if(!areDg(n.trim()) || !areDg(k.trim())) {
+      setAlertMsg("N and K must be valid numbers.");
+      setOpenValid(true);
+      return;
+    }
+    const parsedN = parseInt(n.trim());
+    const parsedK = parseInt(k.trim());
     if (isNaN(parsedN) || isNaN(parsedK)) {
       setAlertMsg("N and K must be valid numbers.");
       setOpenValid(true);
@@ -71,7 +77,7 @@ const Home = () => {
       return;
     }
 
-    setPgm(pgmGen(n, k));
+    setPgm(pgmGen(+parsedN, +parsedK));
     requestAnimationFrame(() => {
       divRef[0].current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     });
