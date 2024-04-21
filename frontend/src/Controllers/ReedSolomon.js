@@ -6,16 +6,20 @@ const isPrime = (num) => {
     return true;
 };
 
-const power = (a, b, mod) => {
-    if (b === 0) return 1;
-    if (b === 1) return a % mod;
-    let ans = 1;
-    ans = power(a * a, Math.floor(b / 2), mod);
-    ans %= mod;
-    if (b % 2) {
-        ans = (ans * a) % mod;
+function power(a, b, mod) {
+    if (b === 0) {
+        return 1 % mod;
     }
-    return ans % mod;
+    let result = 1;
+    a = a % mod;
+    while (b > 0) {
+        if (b % 2 === 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        b = Math.floor(b / 2);
+    }
+    return result;
 }
 
 const pgmGen = (n, k) => {
