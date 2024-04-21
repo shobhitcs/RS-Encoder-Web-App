@@ -50,8 +50,8 @@ const Home = () => {
       return;
     }
 
-    if (parsedN * parsedK > 4200){
-      setAlertMsg("Memory Constraints: N * K <= 4200.");
+    if (parsedN * parsedK > 4500){
+      setAlertMsg("Memory Constraints: N * K <= 4500.");
       setOpenValid(true);
       return;
     }
