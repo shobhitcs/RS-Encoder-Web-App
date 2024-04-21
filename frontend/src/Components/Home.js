@@ -65,14 +65,14 @@ const Home = () => {
     const isValidN = isPrime(parsedN);
     const isValidK = parsedK < parsedN;
 
-    if (!isValidN) {
-      setAlertMsg("N must be prime number.");
+    if (!isValidN || parsedN <=0) {
+      setAlertMsg("N > 0 must be prime number.");
       setOpenValid(true);
       return;
     }
 
-    if (!isValidK) {
-      setAlertMsg("K must be less than N.");
+    if (!isValidK || parsedK <=0) {
+      setAlertMsg("K must be less than N > 0.");
       setOpenValid(true);
       return;
     }
@@ -93,6 +93,7 @@ const Home = () => {
         return;
       }
       else {
+        handleGeneratePGM();
         setClassMsg(encodeClassical(input, pgm, +k));
         requestAnimationFrame(() => {
           divRef[1].current.scrollIntoView({ behavior: 'smooth', block: 'end' });
