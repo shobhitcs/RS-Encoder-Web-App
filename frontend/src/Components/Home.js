@@ -40,11 +40,18 @@ const Home = () => {
 
   const handleGeneratePGM = () => {
     // Check if n is a valid prime number and k is less than n
+
     const parsedN = parseInt(n);
     const parsedK = parseInt(k);
 
     if (isNaN(parsedN) || isNaN(parsedK)) {
       setAlertMsg("N and K must be valid numbers.");
+      setOpenValid(true);
+      return;
+    }
+
+    if (parsedN * parsedK > 4200){
+      setAlertMsg("Memory Constraints: N * K <= 4200.");
       setOpenValid(true);
       return;
     }
@@ -75,7 +82,7 @@ const Home = () => {
     if (message !== null && message !== '') {
       const input = parseMessage(message.trim(), +n, +k);
       if (!input) {
-        setAlertMsg("Message size must be a multiple of K or fewer than N elements.");
+        setAlertMsg("Message size : Multiple of K | Elements : <N");
         setOpenValid(true);
         return;
       }
@@ -97,7 +104,7 @@ const Home = () => {
     if (message !== null && message !== '') {
       const input = parseMessage(message.trim(), +n, +k);
       if (!input) {
-        setAlertMsg("Message size must be a multiple of K or fewer than N elements.");
+        setAlertMsg("Message size : Multiple of K | Elements : <N");
         setOpenValid(true);
         return;
       }
