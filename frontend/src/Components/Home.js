@@ -93,7 +93,7 @@ const Home = () => {
         return;
       }
       else {
-        handleGeneratePGM();
+        // handleGeneratePGM();
         setClassMsg(encodeClassical(input, pgm, +k));
         requestAnimationFrame(() => {
           divRef[1].current.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -192,7 +192,7 @@ const Home = () => {
             color="primary"
             onClick={handleEncodeClassical}
             fullWidth
-            disabled={!pgm}
+            disabled={!pgm || !areDg(n.trim()) || !areDg(k.trim()) || pgm.length !== parseInt(k.trim()) || pgm[0].length != parseInt(n.trim())}
           >
             Classical Encoding
           </Button>
