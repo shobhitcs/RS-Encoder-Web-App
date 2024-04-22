@@ -192,7 +192,7 @@ const Home = () => {
             color="primary"
             onClick={handleEncodeClassical}
             fullWidth
-            disabled={!pgm || !areDg(n.trim()) || !areDg(k.trim()) || pgm.length !== parseInt(k.trim()) || pgm[0].length != parseInt(n.trim())}
+            disabled={!pgm || !areDg(n.trim()) || !areDg(k.trim()) || pgm.length !== parseInt(k.trim()) || pgm[0].length !== parseInt(n.trim())}
           >
             Classical Encoding
           </Button>
